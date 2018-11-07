@@ -5,21 +5,31 @@ from bravado.requests_client import RequestsClient
 # Required to create a Bravado SwaggerClient instance
 from bravado.client import SwaggerClient
 
-def init_client(url):
+def init_client(
+        url,
+        disable_fallback_results=False,
+        validate_responses=True,
+        validate_requests=True,
+        validate_swagger_spec=True,
+        use_models=False,
+        ssl_verify=True,
+):
 
     """Init client"""
 
     # Create a new Requests client instance
     http_client = RequestsClient()
-    # http_client = FidoClient()
 
-    http_client.session.verify = False
+    http_client.session.verify = ssl_verify
 
     swagger_client = SwaggerClient.from_url(
         url,
         http_client=http_client,
-        config={'also_return_response': True,
-                'validate_responses': True}
+        config={'disable_fallback_results': disable_fallback_results,
+                'validate_responses': validate_responses,
+                'validate_requests': validate_requests,
+                'validate_swagger_spec': validate_swagger_spec,
+                'use_models': use_models}
     )
 
     return swagger_client
@@ -46,16 +56,17 @@ def get_run_status(client, run_id):
         run_id=run_id
     ).response(timeout=0.5, fallback_result=[]).result
 
-# URL = "https://localhost/ga4gh/wes/v1/swagger.json"
-#
-# client = init_client(URL)
-# service_info = get_service_info(client=client)
-# runs = get_runs(client=client)
-# run = get_run(client=client, run_id="IXOH4X")
-# run_status = get_run_status(client=client, run_id="IXOH4X")
-#
-# print(client)
-# print(service_info)
-# print(runs)
-# print(run)
-# print(run_status)
+def post_run(
+        client,
+        workflow_params,
+        workflow_type,
+        workflow_type_version,
+        tags,
+        workflow_engine_parameters,
+        workflow_url,
+        workflow_attachment
+):
+    pass
+
+def post_cancel_run():
+    pass

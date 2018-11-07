@@ -13,7 +13,7 @@ from wes_client import get_run_status
 
 URL = "https://localhost/ga4gh/wes/v1/swagger.json"
 
-client = init_client(URL)
+client = init_client(url=URL, ssl_verify=False)
 service_info = get_service_info(client=client)
 runs = get_runs(client=client)
 run = get_run(client=client, run_id="IXOH4X")
