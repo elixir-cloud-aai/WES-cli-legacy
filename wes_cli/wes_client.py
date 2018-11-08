@@ -11,7 +11,7 @@ def init_client(
         validate_responses=True,
         validate_requests=True,
         validate_swagger_spec=True,
-        use_models=False,
+        use_models=True,
         ssl_verify=True,
 ):
 
@@ -35,38 +35,58 @@ def init_client(
     return swagger_client
 
 def get_service_info(client):
+
     """Get service info"""
+
     return client.WorkflowExecutionService.GetServiceInfo(
     ).response(timeout=0.5, fallback_result=[]).result
 
 def get_runs(client):
+
     """Get runs"""
+
     return client.WorkflowExecutionService.ListRuns(
     ).response(timeout=0.5, fallback_result=[]).result
 
 def get_run(client, run_id):
+
     """Get run id"""
+
     return client.WorkflowExecutionService.GetRunLog(
         run_id=run_id
     ).response(timeout=0.5, fallback_result=[]).result
 
 def get_run_status(client, run_id):
+
     """Get run status"""
+
     return client.WorkflowExecutionService.GetRunStatus(
         run_id=run_id
     ).response(timeout=0.5, fallback_result=[]).result
 
 def post_run(
-        client,
-        workflow_params,
-        workflow_type,
-        workflow_type_version,
-        tags,
-        workflow_engine_parameters,
-        workflow_url,
-        workflow_attachment
+    client,
+    workflow_params,
+    workflow_type,
+    workflow_type_version,
+    workflow_url
 ):
-    pass
 
-def post_cancel_run():
-    pass
+    """Post run"""
+
+    post_run_id = client.WorkflowExecutionService.RunWorkflow(
+        workflow_params=workflow_params,
+        workflow_type=workflow_type,
+        workflow_type_version=workflow_type_version,
+        workflow_url=workflow_url
+    ).response(timeout=60, fallback_result=[]).result
+
+    return post_run_id
+
+def post_cancel_run(client, run_id):
+
+    """Cancel run"""
+
+    return client.WorkflowExecutionService.CancelRun(
+        run_id=run_id
+    ).response(timeout=0.5, fallback_result=[]).result
