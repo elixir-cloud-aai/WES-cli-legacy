@@ -1,0 +1,4 @@
+venv
+wes_cli/__pycache__
+*.ipynb
+wes_cli/*.ipynb
