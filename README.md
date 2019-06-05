@@ -1,19 +1,18 @@
 # WES-cli
-Client based on bravado for the Workflow Execution Service (WES)
+Bravado-based client for Workflow Execution Service (WES) API services
 
 # Installation
 
 Clone repository
 
 ```bash
-git clone https://github.com/zavolanlab/WES-cli.git
+git clone https://github.com/elixir-europe/WES-cli.git
 ```
 
 Traverse to project directory
 
 ```bash
 cd WES-cli
-project_dir="$PWD"
 ```
 
 Create and activate virtual environment
