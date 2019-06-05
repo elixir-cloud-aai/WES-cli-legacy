@@ -1,5 +1,5 @@
 # WES-cli
-Bravado-based client for Workflow Execution Service (WES) API services
+Bravado-based client for GA4GH Workflow Execution Service (WES) API services
 
 # Installation
 
